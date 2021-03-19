@@ -38,147 +38,73 @@ public class soilActivity extends AppCompatActivity {
         // Define the variable
         CardView tempCard = findViewById(R.id.tempCard);
         CardView humiCard = findViewById(R.id.humiCard);
+        final sensorService sensorService = new sensorService(soilActivity.this);
+        final TextView textViewTemp = (TextView) findViewById(R.id.temperatureShow);
+        final TextView textViewHumi = (TextView) findViewById(R.id.humidityShow);
 
-        getTemp_n_Humi();
+        // Set initial display sensor values after click to Soil page
+        sensorService.getTemp(new sensorService.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(soilActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                textViewTemp.setText("N/A");
+            }
 
+            @Override
+            public void onResponse(String response) {
+                textViewTemp.setText(response + "°C");
+            }
+        });
+        sensorService.getHumi(new sensorService.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(soilActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                textViewHumi.setText("N/A");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                textViewHumi.setText(response + "%");
+            }
+        });
+
+        // Set click update temp or humidity
         tempCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(soilActivity.this);
-                String url ="http://192.168.0.24:80/temp";
 
-                JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                sensorService.getTemp(new sensorService.VolleyResponseListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        String temp = "";
-                        try {
-                            JSONObject JSON_temp = response.getJSONObject(0);
-                            temp = JSON_temp.getString("temp");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(soilActivity.this, temp , Toast.LENGTH_SHORT).show();
+                    public void onError(String message) {
+                        Toast.makeText(soilActivity.this, "Error: " + message , Toast.LENGTH_SHORT).show();
                     }
-                }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(soilActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    public void onResponse(String response) {
+                        textViewTemp.setText(response + "°C");
+                        Toast.makeText(soilActivity.this, "Returned temperature: " + response , Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                // Add the request to the RequestQueue.
-                queue.add(request);
-
             }
         });
         humiCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(soilActivity.this);
-                String url ="http://192.168.0.24:80/humi";
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                sensorService.getHumi(new sensorService.VolleyResponseListener() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String humi = "";
-                        humi = response.optString("humi");
-                        Toast.makeText(soilActivity.this, humi , Toast.LENGTH_SHORT).show();
+                    public void onError(String message) {
+                        Toast.makeText(soilActivity.this, "Error: " + message , Toast.LENGTH_SHORT).show();
                     }
-                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(soilActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    public void onResponse(String response) {
+                        textViewHumi.setText(response + "%");
+                        Toast.makeText(soilActivity.this, "Returned humidity: " + response , Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                // Add the request to the RequestQueue.
-                queue.add(request);
-
-
-                // Request a string response from the provided URL.
-//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                // Display the first 500 characters of the response string.
-//                                Toast.makeText(soilActivity.this, response, Toast.LENGTH_SHORT).show();
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(soilActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
-
-
-                //Toast.makeText(soilActivity.this, "Temp Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    private void getTemp_n_Humi() {
 
-        final TextView textViewTemp = (TextView) findViewById(R.id.temperatureShow);
-        final TextView textViewHumi = (TextView) findViewById(R.id.humidityShow);
-
-        // GET TEMP
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(soilActivity.this);
-        String url ="http://192.168.0.24:80/temp";
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                String temp = "";
-                try {
-                    JSONObject JSON_temp = response.getJSONObject(0);
-                    temp = JSON_temp.getString("temp");
-                    textViewTemp.setText(temp + "°C");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textViewTemp.setText("N/A");
-                Toast.makeText(soilActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(request);
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // GET Humi
-        // Instantiate the RequestQueue.
-        RequestQueue queue2 = Volley.newRequestQueue(soilActivity.this);
-        String url2 ="http://192.168.0.24:80/humi";
-
-        JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                String humi = "";
-                humi = response.optString("humi");
-                textViewHumi.setText(humi + "%");
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                textViewHumi.setText("N/A");
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue2.add(request2);
-
-    }
 }
