@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 Intent showSoilIndexs = new Intent(MainActivity.this,soilActivity.class);
                 startActivity(showSoilIndexs);
-                Toast.makeText(MainActivity.this, "Soil Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Soil Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 

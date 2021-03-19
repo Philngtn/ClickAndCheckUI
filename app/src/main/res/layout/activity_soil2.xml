@@ -18,6 +18,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/tempCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -52,7 +53,7 @@
                     android:id="@+id/temperatureShow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="27°C"
+                    android:text="17°C"
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:textAlignment="center"
@@ -75,7 +76,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/soilCard"
+            android:id="@+id/humiCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -135,7 +136,6 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/farmerCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Developing"
+                    android:text="In Developing"
                     android:textSize="20dp"
                     android:textColor="@color/white"
                     android:textAlignment="center"
