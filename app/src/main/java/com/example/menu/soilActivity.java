@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ import java.util.Objects;
 public class soilActivity extends AppCompatActivity {
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +39,12 @@ public class soilActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // Define the variable
-        CardView tempCard = findViewById(R.id.tempCard);
-        CardView humiCard = findViewById(R.id.humiCard);
+        final CardView tempCard = findViewById(R.id.tempCard);
+        final CardView humiCard = findViewById(R.id.humiCard);
         final sensorService sensorService = new sensorService(soilActivity.this);
         final TextView textViewTemp = (TextView) findViewById(R.id.temperatureShow);
         final TextView textViewHumi = (TextView) findViewById(R.id.humidityShow);
+
 
         // Set initial display sensor values after click to Soil page
         sensorService.getTemp(new sensorService.VolleyResponseListener() {
@@ -85,6 +89,8 @@ public class soilActivity extends AppCompatActivity {
                     }
                 });
             }
+
+
         });
         humiCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +110,41 @@ public class soilActivity extends AppCompatActivity {
             }
         });
 
+        // refreshContent();
     }
 
+    public void refreshContent(){
+        final CardView tempCard = findViewById(R.id.tempCard);
+        final TextView textViewTemp = (TextView) findViewById(R.id.temperatureShow);
+        final sensorService sensorService = new sensorService(soilActivity.this);
 
+        sensorService.getTemp(new sensorService.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(soilActivity.this, "Refresh Error: " + message, Toast.LENGTH_SHORT).show();
+                textViewTemp.setText("N/A");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                textViewTemp.setText("Refreshed temp" + response + "°C");
+            }
+        });
+
+        // After 2s refresh contents
+        refresh(2000);
+
+    }
+
+    private void refresh(int milliseconds){
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                refreshContent();
+            }
+        };
+
+        handler.postDelayed(runnable, milliseconds);
+    }
 }

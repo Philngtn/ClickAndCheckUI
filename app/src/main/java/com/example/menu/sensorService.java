@@ -19,9 +19,11 @@ public class sensorService {
 
     public static final String QUERY_TEMP_SENSOR = "http://192.168.0.24:80/temp";
     public static final String QUERY_GET_HUMIDITY = "http://192.168.0.24:80/humi";
+    
     Context context;
     String sensorTemp;
     String humi;
+
     public sensorService(Context context) {
         this.context = context;
     }
@@ -62,7 +64,6 @@ public class sensorService {
         MySingleton.getInstance(context).addToRequestQueue(request);
 
     }
-
     public void getHumi(VolleyResponseListener volleyResponseListener){
 
         // Using standard request
