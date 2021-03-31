@@ -40,6 +40,9 @@ public class soilActivity extends AppCompatActivity {
         // Back button
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        // Set title App bar
+        getSupportActionBar().setTitle("Temperature and Humidity");
+
         // Define the variable
         final CardView tempCard = findViewById(R.id.tempCard);
         final CardView humiCard = findViewById(R.id.humiCard);

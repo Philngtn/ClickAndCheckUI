@@ -15,7 +15,8 @@ public class tempHumidRecords extends AppCompatActivity {
 
         // Back button
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
+        // Set app bar title
+        getSupportActionBar().setTitle("Records");
 
     }
 }
