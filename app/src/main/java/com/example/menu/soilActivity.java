@@ -3,9 +3,11 @@ package com.example.menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,7 @@ public class soilActivity extends AppCompatActivity {
         final sensorService sensorService = new sensorService(soilActivity.this);
         final TextView textViewTemp = (TextView) findViewById(R.id.temperatureShow);
         final TextView textViewHumi = (TextView) findViewById(R.id.humidityShow);
-
+        final Button recordButton = (Button) findViewById(R.id.recordButton);
 
         // Set initial display sensor values after click to Soil page
         sensorService.getTemp(new sensorService.VolleyResponseListener() {
@@ -73,6 +75,7 @@ public class soilActivity extends AppCompatActivity {
         });
 
         // Set click update temp or humidity
+        // Set click on Temperature Card
         tempCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,8 +93,8 @@ public class soilActivity extends AppCompatActivity {
                 });
             }
 
-
         });
+        // Set click on Humidity Card
         humiCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +112,19 @@ public class soilActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+        // Set Record click
+        recordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(soilActivity.this, "Record Clicked: ", Toast.LENGTH_SHORT).show();
+                Intent showRecord = new Intent(soilActivity.this,tempHumidRecords.class);
+                startActivity(showRecord);
+            }
+        });
+
+
 
         // refreshContent();
     }

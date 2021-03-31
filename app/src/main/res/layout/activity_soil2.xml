@@ -7,8 +7,9 @@
     tools:context=".soilActivity">
 
     <GridLayout
+        android:id="@+id/grid_layout"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="70dp"
         android:columnCount="1"
         android:rowCount="3"
         android:layout_width="match_parent"
@@ -135,6 +136,7 @@
 
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -172,8 +174,20 @@
 
         </androidx.cardview.widget.CardView>
 
-
     </GridLayout>
+
+
+    <Button
+        android:id="@+id/recordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:text="Record" />
 
 
 </RelativeLayout>
