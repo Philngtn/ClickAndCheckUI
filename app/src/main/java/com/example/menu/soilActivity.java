@@ -64,6 +64,8 @@ public class soilActivity extends AppCompatActivity {
                 textViewTemp.setText(response + "°C");
             }
         });
+
+
         sensorService.getHumi(new sensorService.VolleyResponseListener() {
             @Override
             public void onError(String message) {
