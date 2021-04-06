@@ -86,7 +86,9 @@ public class tempHumidRecords extends AppCompatActivity {
                     String temp = response.optJSONObject(i).optString("Temp");
                     String humid = response.optJSONObject(i).optString("Humid");
 
-                    String formattedTime = time.substring(0,2) + ":" +time.substring(3,5) + ":" + time.substring(4,6);
+                    String formattedTime = time.substring(0,2) + ":" +time.substring(2,4) + ":" + time.substring(4,6);
+
+                    Toast.makeText(tempHumidRecords.this, "JSON: " +  formattedTime, Toast.LENGTH_SHORT).show();
 
                     DateValues.add(formattedTime);
                     tempDataValues.add(new Entry(i, Float.parseFloat(temp)));
@@ -127,7 +129,7 @@ public class tempHumidRecords extends AppCompatActivity {
                 barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(DateValues));
 
                 XAxis xAxisBar = barChart.getXAxis();
-                xAxisBar.setGranularity(2f);
+                xAxisBar.setGranularity(1f);
 
                 barChart.invalidate();
 

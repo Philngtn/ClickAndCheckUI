@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Menu"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LoginActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name=".tempHumidRecords"
-            android:parentActivityName=".soilActivity"/>
+            android:parentActivityName=".soilActivity" />
         <activity
             android:name=".soilActivity"
             android:parentActivityName=".MainActivity" />
