@@ -55,6 +55,8 @@ public class tempHumidRecords extends AppCompatActivity {
         lineChart.setTouchEnabled(true);
         lineChart.setPinchZoom(true);
         lineChart.setDrawBorders(true);
+        lineChart.getDescription().setEnabled(false);
+
 
 
         // Setup bar charts
@@ -62,6 +64,7 @@ public class tempHumidRecords extends AppCompatActivity {
         barChart.setTouchEnabled(true);
         barChart.setPinchZoom(true);
         barChart.setDrawBorders(true);
+        barChart.getDescription().setEnabled(false);
 
 
         // Declare constructor
